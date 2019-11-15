@@ -55,3 +55,6 @@ class PriorityQueue(object):
 
   def is_empty(self) -> bool:
     return len(self.queue) == 0
+  
+  def print(self):
+    print(self.queue)

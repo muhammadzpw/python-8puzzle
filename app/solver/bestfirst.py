@@ -1,26 +1,17 @@
-from app.solver import Solver, Solution
+from app.solver.solver import Solver, Solution
 from app.model import StateNode
+from app.helpers import is_goal
 
-def is_goal(current, goal) -> bool:
-  return current == goal
-
-class AStar(Solver):
+class BestFirst(Solver):
   def __init__(self, start_state, goal_state):
     super().__init__(start_state, goal_state)
-
+  
   def solve(self):
     solved = False
     current_node = None
     while not self.queue.is_empty():
       current_node = self.queue.pop()
       current_node.set_cost(current_node.distance + current_node.depth)
-      
-      print("Current: ", current_node.state)
-      print("Cost: ", current_node.cost)
-      # print("Visited: ", self.visited_state.__str__())
-      # print("Queue: ", self.queue.queue)
-      print("Depth: ", current_node.depth)
-      print()
 
       if current_node.state in self.visited_state:
         continue
@@ -33,7 +24,7 @@ class AStar(Solver):
             depth=current_node.depth + 1,
             parent=current_node
         )
-        expanding_node.set_cost(expanding_node.distance + expanding_node.depth)
+        expanding_node.set_cost(expanding_node.distance)
         expansion.append(expanding_node)
 
         if is_goal(adj, self.goal_state):

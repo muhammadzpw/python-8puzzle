@@ -1,4 +1,5 @@
 from typing import List
+from app.config import SPACE_SYMBOL
 from app.model import PriorityQueue, StateNode
 
 class Solution(object):
@@ -27,7 +28,7 @@ class Solution(object):
         current_node = current_node.parent
         self.path.append(current_node)
 
-    self.cost = len(self.path)
+    self.cost = len(self.path) - 1
       
 
 class Solver(object):
@@ -44,3 +45,16 @@ class Solver(object):
     
   def solve(self):
     raise NotImplementedError
+
+  def is_solvable(self):
+    number_of_inversions = 0
+    indices = []
+    for x in self.start_state:
+      if x == SPACE_SYMBOL:
+        continue
+      indices.append(self.goal_state.index(x))
+    for idx, x in enumerate(indices):
+      for y in indices[idx:]:
+        if x > y :
+          number_of_inversions += 1
+    return number_of_inversions % 2 == 0

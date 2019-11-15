@@ -1,16 +1,20 @@
-def calc_distance(stateA: str, stateB: str) -> int: 
-  if len(stateA) != len(stateB):
-    raise Exception("The size of input a and b should be equal.")
-  if len(stateA) != 9:
-    raise Exception("The size of input must be exactly 9")
+from app.config import SPACE_SYMBOL
+
+def calc_distance(state: str, goal_state: str) -> int: 
+  '''
+  Manhattan Distance
+  '''
   distance = 0
-  for i in range(len(stateA)):
-    if stateA[i] != stateB[i]:
-      distance += 1
+  for idx, val in enumerate(state):
+    if val == SPACE_SYMBOL:
+      continue
+    goal_idx = goal_state.index(val)
+    d = abs(idx % 3 - goal_idx % 3) + abs(idx // 3 - goal_idx // 3)
+    distance += d 
   return distance
 
 def find_space_position(input: str) -> int:
-  return input.index('#')
+  return input.index(SPACE_SYMBOL)
 
 def is_possible_up(input: str) -> bool:
   space_position = find_space_position(input)
@@ -89,7 +93,21 @@ def list_to_str(lst: list):
     out += x
   return out
 
+def is_goal(current, goal) -> bool:
+  return current == goal
+
+def pretty_print_state(state: str):
+  print(state[0:3])
+  print(state[3:6])
+  print(state[6:9])
+  print()
+
 # print(move_up("123#45678"))
 # print(move_right("123#45678"))
 # print(move_down("123#45678"))
 # print(move_left("123#45678"))
+413
+256
+78#
+
+41325678#
