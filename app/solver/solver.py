@@ -35,13 +35,15 @@ class Solver(object):
   goal_state = ""
   start_state  = ""
 
-  def __init__(self, start_state, goal_state):
+  def __init__(self, start_state, goal_state, verbose=False):
+    self.verbose = verbose
     self.visited_state = set()
     self.start_state = start_state
     self.goal_state = goal_state
     
   def solve(self):
-    raise NotImplementedError
+    if not self.is_solvable():
+      raise Exception("Puzzle is unsolvable.")
 
   def is_solvable(self):
     number_of_inversions = 0

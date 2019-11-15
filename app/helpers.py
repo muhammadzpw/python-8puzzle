@@ -97,17 +97,7 @@ def is_goal(current, goal) -> bool:
   return current == goal
 
 def pretty_print_state(state: str):
-  print(state[0:3])
-  print(state[3:6])
-  print(state[6:9])
+  print([x for x in state[0:3]])
+  print([x for x in state[3:6]])
+  print([x for x in state[6:9]])
   print()
-
-# print(move_up("123#45678"))
-# print(move_right("123#45678"))
-# print(move_down("123#45678"))
-# print(move_left("123#45678"))
-413
-256
-78#
-
-41325678#

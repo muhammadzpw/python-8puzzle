@@ -58,4 +58,6 @@ class PriorityQueue(object):
     return len(self.queue) == 0
   
   def print(self):
+    for q in self.queue:
+      print("state: {}, cost: {}, parent: {}".format(q.state, q.cost, q.parent.state))
     print(self.queue)
