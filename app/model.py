@@ -41,7 +41,8 @@ class StateNode(object):
     return adjacent
 
 class PriorityQueue(object):
-  queue = []
+  def __init__(self):
+    self.queue = []
 
   def add(self, node: StateNode):
     self.queue.append(node)

@@ -8,7 +8,7 @@ class TestingPriorityQueue(unittest.TestCase):
 
   def test_exist(self):
     q = PriorityQueue()
-    print(q)
+    print(len(q.queue))
     self.assertTrue(q.is_empty())
 
   def test_add(self):

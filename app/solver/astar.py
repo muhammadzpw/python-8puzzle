@@ -1,12 +1,17 @@
 from app.solver.solver import Solver, Solution
-from app.model import StateNode
+from app.model import StateNode, PriorityQueue
 from app.helpers import is_goal, pretty_print_state
 
 class AStar(Solver):
   def __init__(self, start_state, goal_state):
     super().__init__(start_state, goal_state)
+    self.queue = PriorityQueue()
+    root_node = StateNode(start_state, goal_state, depth=0, parent=None)
+    self.queue.add(root_node)
 
   def solve(self):
+    if not self.is_solvable():
+      raise Exception("Puzzle is unsolvable.")
     solved = False
     current_node = None
     i = 0
@@ -17,6 +22,7 @@ class AStar(Solver):
       print("empty", self.queue.is_empty())
       print("Current state: ")
       pretty_print_state(current_node.state)
+      print("Visited: ", self.visited_state)
       print("Queue: ")
       self.queue.print()
 
@@ -44,11 +50,8 @@ class AStar(Solver):
         expanding_node.set_cost(expanding_node.distance + expanding_node.depth)
         expansion.append(expanding_node)
         self.queue.add(expanding_node)
-
-      # min_cost = min(expansion, key= lambda x: x.cost)
-      # self.queue.add(min_cost)
       i += 1
 
     if solved:
       return Solution(current_node)
-    return None
+    raise Exception("Error can not solve the puzzle")

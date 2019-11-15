@@ -1,12 +1,12 @@
 from typing import List
 from app.config import SPACE_SYMBOL
-from app.model import PriorityQueue, StateNode
+from app.model import StateNode
 
 class Solution(object):
-  cost = 0
-  path = []
 
   def __init__(self, goal_node: StateNode):
+    self.cost = 0
+    self.path = []
     self.traceback(goal_node)
 
   def set_cost(self, cost):
@@ -34,14 +34,11 @@ class Solution(object):
 class Solver(object):
   goal_state = ""
   start_state  = ""
-  visited_state = set()
-  queue = PriorityQueue()
 
   def __init__(self, start_state, goal_state):
+    self.visited_state = set()
     self.start_state = start_state
     self.goal_state = goal_state
-    root_node = StateNode(start_state, goal_state, depth=0, parent=None)
-    self.queue.add(root_node)
     
   def solve(self):
     raise NotImplementedError
