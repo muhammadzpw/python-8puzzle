@@ -36,7 +36,6 @@ class AStar(Solver):
           print("Found: ", current_node.state)
         break
 
-      expansion = []
       for adj in current_node.expand():
         if adj in self.visited_state:
           continue
@@ -48,7 +47,6 @@ class AStar(Solver):
             parent = current_node
         )
         expanding_node.set_cost(expanding_node.distance + expanding_node.depth)
-        expansion.append(expanding_node)
         self.queue.add(expanding_node)
       i += 1
 
